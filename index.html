@@ -3,28 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Website</title>
+<title>Flip Cards</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="index-page">
 
-<h1>Welcome to My Fun Page!</h1>
-<p>Click the button below to enter the soup surprise space 🌌🥣</p>
+<h1>Pick a card!</h1>
 
-<a href="space.html">
-  <button style="
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border-radius: 10px;
-    border: none;
-    background-color: #ffcc66;
-    color: #000;
-    cursor: pointer;
-    transition: transform 0.2s;
-  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-    Enter the Soup Space
-  </button>
-</a>
+<div class="cards-container" id="cardsContainer">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">Card 1</div>
+      <div class="flip-card-back">ullu banayaa bada maza aaya 😭<br><br>this card contains absolutely nothing.</div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">Card 2</div>
+      <div class="flip-card-back">Congrats 🎉<br><br>You unlocked disappointment flavoured card. ha! you deserve it</div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">Card 3</div>
+      <div class="flip-card-back">Happy New Year soupp 🥣💛<br><br>ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.<br>And thanks too for listening too my bina matlab ki baatein.<br>Take a moment to appreciate yourself, will uh?<br>By any chance u clicked it first, do open the others too, its my hardwork!!!</div>
+    </div>
+  </div>
+</div>
+
+<button class="next-page-btn" onclick="goNext()">Go to Next Page</button>
+
+<script>
+// Make cards float randomly and move around
+const cards = document.querySelectorAll('.flip-card');
+cards.forEach(card => {
+  card.style.left = Math.random() * (window.innerWidth - 220) + 'px';
+  card.style.top = Math.random() * (window.innerHeight - 270) + 'px';
+
+  const speedX = Math.random() * 1.5 + 0.5;
+  const speedY = Math.random() * 1.5 + 0.5;
+  let directionX = Math.random() < 0.5 ? 1 : -1;
+  let directionY = Math.random() < 0.5 ? 1 : -1;
+
+  function moveCard() {
+    let x = parseFloat(card.style.left);
+    let y = parseFloat(card.style.top);
+
+    if(x < 0 || x > window.innerWidth - 220) directionX *= -1;
+    if(y < 0 || y > window.innerHeight - 270) directionY *= -1;
+
+    card.style.left = x + speedX * directionX + 'px';
+    card.style.top = y + speedY * directionY + 'px';
+
+    requestAnimationFrame(moveCard);
+  }
+  moveCard();
+});
+
+function goNext() {
+  window.location.href = 'space.html';
+}
+</script>
 
 </body>
 </html>
