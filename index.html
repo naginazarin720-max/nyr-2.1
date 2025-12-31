@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Soup Game 🍲</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soup Click</title>
+<style>
+  .soup {
+    width: 150px;
+    margin: 20px;
+    cursor: pointer;
+    float: left;
+    transition: transform 0.2s;
+  }
+  .soup:hover {
+    transform: scale(1.1);
+  }
+</style>
 </head>
+<body>
 
-<body class="beige">
+<h2>Pick a soup!</h2>
 
-<button onclick="alert('SOUP WORKS')">
-  CLICK ME
-</button>
-;
+<img src="soup1.png" class="soup" onclick="showMsg(1)">
+<img src="soup2.png" class="soup" onclick="showMsg(2)">
+<img src="soup3.png" class="soup" onclick="showMsg(3)">
+
+<script>
+const messages = {
+  1: "ullu banayaa bada maza aaya 😭<br><br>this soup contains absolutely nothing.",
+  2: "Congrats 🎉<br><br>You unlocked disappointment flavoured soup. ha! you deserve it",
+  3: `Happy New Year soupp 🥣💛<br><br>
+      ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
+      And thanks too for listening too my bina matlab ki baatein. 
+      Ik i dont say it often but i did get lucky that u were not an old man.<br>
+      Take a moment to appreciate yourself, will uh?<br>
+      By any chance u clicked it first, do open the others too, its my hardwork!!!`
+};
+
+function showMsg(id) {
+  if(id === 2) {
+    alert(messages[2]);
+  } else if(id === 1) {
+    alert(messages[1]);
+  } else {
+    alert(messages[3]);
+  }
 }
 </script>
 
