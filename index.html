@@ -3,17 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soup Click</title>
+<title>Floating Soups</title>
 <style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 30px;
+    background-color: #fff8e1;
+  }
+
+  .soups-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    position: relative;
+    height: 250px;
+  }
+
   .soup {
     width: 150px;
-    margin: 20px;
     cursor: pointer;
-    float: left;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
+    position: absolute;
   }
+
   .soup:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    z-index: 10;
+  }
+
+  .message {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ffcc66;
+    border-radius: 15px;
+    background-color: #fffbe6;
+    display: none;
+    text-align: left;
+    white-space: pre-wrap;
   }
 </style>
 </head>
@@ -21,31 +51,60 @@
 
 <h2>Pick a soup!</h2>
 
-<img src="soup1.png" class="soup" onclick="showMsg(1)">
-<img src="soup2.png" class="soup" onclick="showMsg(2)">
-<img src="soup3.png" class="soup" onclick="showMsg(3)">
+<div class="soups-container">
+  <img src="soup1.png" class="soup" id="soup1" onclick="showMsg(1)">
+  <img src="soup2.png" class="soup" id="soup2" onclick="showMsg(2)">
+  <img src="soup3.png" class="soup" id="soup3" onclick="showMsg(3)">
+</div>
+
+<div id="msg" class="message"></div>
 
 <script>
 const messages = {
-  1: "ullu banayaa bada maza aaya 😭<br><br>this soup contains absolutely nothing.",
-  2: "Congrats 🎉<br><br>You unlocked disappointment flavoured soup. ha! you deserve it",
-  3: `Happy New Year soupp 🥣💛<br><br>
-      ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
-      And thanks too for listening too my bina matlab ki baatein. 
-      Ik i dont say it often but i did get lucky that u were not an old man.<br>
-      Take a moment to appreciate yourself, will uh?<br>
-      By any chance u clicked it first, do open the others too, its my hardwork!!!`
+  1: "ullu banayaa bada maza aaya 😭\n\nthis soup contains absolutely nothing.",
+  2: "Congrats 🎉\n\nYou unlocked disappointment flavoured soup. ha! you deserve it",
+  3: `Happy New Year soupp 🥣💛
+
+ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
+And thanks too for listening too my bina matlab ki baatein.
+Ik i dont say it often but i did get lucky that u were not an old man.
+Take a moment to appreciate yourself, will uh?
+By any chance u clicked it first, do open the others too, its my hardwork!!!`
 };
 
+// Show message
 function showMsg(id) {
-  if(id === 2) {
-    alert(messages[2]);
-  } else if(id === 1) {
-    alert(messages[1]);
-  } else {
-    alert(messages[3]);
-  }
+  const msgDiv = document.getElementById('msg');
+  msgDiv.innerHTML = messages[id].replace(/\n/g, "<br>");
+  msgDiv.style.display = 'block';
+  msgDiv.scrollIntoView({ behavior: "smooth" });
 }
+
+// Floating animation
+const soups = document.querySelectorAll('.soup');
+
+soups.forEach(soup => {
+  let posX = Math.random() * 400;
+  let posY = Math.random() * 150;
+  let dirX = (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random()*0.3);
+  let dirY = (Math.random() < 0.5 ? -1 : 1) * (0.2 + Math.random()*0.3);
+
+  function move() {
+    posX += dirX;
+    posY += dirY;
+
+    // Bounce off edges
+    if(posX < 0 || posX > 400) dirX *= -1;
+    if(posY < 0 || posY > 150) dirY *= -1;
+
+    soup.style.left = posX + "px";
+    soup.style.top = posY + "px";
+
+    requestAnimationFrame(move);
+  }
+
+  move();
+});
 </script>
 
 </body>
