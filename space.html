@@ -3,64 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Floating Soups + Meteor Shower</title>
+<title>Meteor + Alien Board</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Pick a soup!</h2>
+<button class="next-page-btn" id="startMeteorBtn">Start Meteor Shower 5s</button>
+<button class="next-page-btn" id="goFinalBtn" style="display:none;">Go to Final Page</button>
 
-<div class="soups-container">
-  <img src="soup1.png" class="soup" onclick="showMsg(1)">
-  <img src="soup2.png" class="soup" onclick="showMsg(2)">
-  <img src="soup3.png" class="soup" onclick="showMsg(3)">
-</div>
-
-<div id="msg" class="message"></div>
-
-<!-- Meteor Canvas -->
 <canvas id="meteorCanvas"></canvas>
 
+<div class="alien-board" id="alienBoard">
+  <div class="hanging-board">You made it! 👽💛</div>
+  <img src="alien.png" alt="Alien waving">
+</div>
+
 <script>
-const messages = {
-  1: "ullu banayaa bada maza aaya 😭\n\nthis soup contains absolutely nothing.",
-  2: "Congrats 🎉\n\nYou unlocked disappointment flavoured soup. ha! you deserve it",
-  3: `Happy New Year soupp 🥣💛
+const meteorCanvas = document.getElementById('meteorCanvas');
+const ctx = meteorCanvas.getContext('2d');
+meteorCanvas.width = window.innerWidth;
+meteorCanvas.height = window.innerHeight;
 
-ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
-And thanks too for listening too my bina matlab ki baatein.
-Ik i dont say it often but i did get lucky that u were not an old man.
-Take a moment to appreciate yourself, will uh?
-By any chance u clicked it first, do open the others too, its my hardwork!!!`
-};
-
-// Show message function
-function showMsg(id) {
-  const msgDiv = document.getElementById('msg');
-  msgDiv.innerHTML = messages[id].replace(/\n/g, "<br>");
-  msgDiv.style.display = 'block';
-  msgDiv.scrollIntoView({ behavior: "smooth" });
-}
-
-// Meteor Shower Animation
-const canvas = document.getElementById('meteorCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
+// Meteor creation
 let meteors = [];
-for(let i=0; i<80; i++){
-  meteors.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    length: Math.random()*80 + 20,
-    speed: Math.random()*4 + 2,
-    angle: Math.random()*0.2 + 0.2
-  });
+
+function createMeteors() {
+  meteors = [];
+  for(let i=0; i<80; i++){
+    meteors.push({
+      x: Math.random()*meteorCanvas.width,
+      y: Math.random()*meteorCanvas.height,
+      length: Math.random()*80 + 20,
+      speed: Math.random()*4 + 2,
+      angle: Math.random()*0.2 + 0.2
+    });
+  }
 }
 
+// Animate meteors
 function animateMeteors(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0,0,meteorCanvas.width,meteorCanvas.height);
   ctx.strokeStyle = 'rgba(255,255,255,0.8)';
   ctx.lineWidth = 2;
   meteors.forEach(m => {
@@ -70,23 +52,36 @@ function animateMeteors(){
     ctx.stroke();
     m.x -= m.speed * m.angle;
     m.y += m.speed;
-    if(m.y > canvas.height || m.x < 0){
-      m.x = Math.random()*canvas.width;
+    if(m.y > meteorCanvas.height || m.x < 0){
+      m.x = Math.random()*meteorCanvas.width;
       m.y = -50;
     }
   });
   requestAnimationFrame(animateMeteors);
 }
 
-animateMeteors();
+// Start meteor for 5s
+document.getElementById('startMeteorBtn').addEventListener('click', () => {
+  createMeteors();
+  animateMeteors();
+  setTimeout(() => {
+    ctx.clearRect(0,0,meteorCanvas.width,meteorCanvas.height);
+    document.getElementById('meteorCanvas').style.display='none';
+    document.getElementById('alienBoard').style.display='block';
+    document.getElementById('goFinalBtn').style.display='inline-block';
+  }, 5000);
+});
+
+document.getElementById('goFinalBtn').addEventListener('click', () => {
+  alert('You reached the final interaction!'); // Or go to another page if needed
+});
 
 // Handle resize
 window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  meteorCanvas.width = window.innerWidth;
+  meteorCanvas.height = window.innerHeight;
 });
 </script>
 
 </body>
 </html>
-
