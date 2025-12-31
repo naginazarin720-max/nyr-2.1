@@ -3,87 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIFTS!!</title>
-<style>
-  body {
-    font-family: sans-serif;
-    text-align: center;
-    padding: 50px;
-    background-color: #fff8e1;
-  }
-
-  .soups-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    position: relative;
-    height: 250px;
-  }
-
-  .soup {
-    width: 180px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    position: relative;
-    animation: float 3s ease-in-out infinite alternate;
-  }
-
-  .soup:hover {
-    transform: scale(1.2);
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-15px); }
-  }
-
-  .message {
-    max-width: 600px;
-    margin: 30px auto 0;
-    padding: 20px;
-    border: 2px solid #ffcc66;
-    border-radius: 15px;
-    background-color: #fffbe6;
-    display: none;
-    text-align: left;
-    white-space: pre-wrap;
-  }
-</style>
+<title>My Website</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Pick a soup!</h2>
+<h1>Welcome to My Fun Page!</h1>
+<p>Click the button below to enter the soup surprise space 🌌🥣</p>
 
-<div class="soups-container">
-  <img src="soup1.png" class="soup" onclick="showMsg(1)">
-  <img src="soup2.png" class="soup" onclick="showMsg(2)">
-  <img src="soup3.png" class="soup" onclick="showMsg(3)">
-</div>
-
-<div id="msg" class="message"></div>
-
-<script>
-const messages = {
-  1: "ullu banayaa bada maza aaya 😭\n\nthis soup contains absolutely nothing.",
-  2: "Congrats 🎉\n\nYou unlocked disappointment flavoured soup. ha! you deserve it",
-  3: `Happy New Year soupp 🥣💛
-
-ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
-And thanks too for listening too my bina matlab ki baatein.
-Ik i dont say it often but i did get lucky that u were not an old man.
-Take a moment to appreciate yourself, will uh?
-By any chance u clicked it first, do open the others too, its my hardwork!!!`
-};
-
-function showMsg(id) {
-  const msgDiv = document.getElementById('msg');
-  msgDiv.innerHTML = messages[id].replace(/\n/g, "<br>");
-  msgDiv.style.display = 'block';
-  msgDiv.scrollIntoView({ behavior: "smooth" });
-}
-</script>
+<a href="space.html">
+  <button style="
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: none;
+    background-color: #ffcc66;
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.2s;
+  " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    Enter the Soup Space
+  </button>
+</a>
 
 </body>
 </html>
-
