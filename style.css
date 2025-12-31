@@ -40,3 +40,48 @@
   position: relative !important;
   z-index: 5 !important;
 }
+
+/* CARD PAGE */
+h1 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 80px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 260px;
+  min-height: 180px;
+  background: #f5f0e6;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) rotate(1deg);
+}
+
+.card.real {
+  background: #ffefc2;
+  border: 2px solid #ffcc66;
+}
+/* UNIVERSAL PAGE CENTERING */
+.page-center {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+
