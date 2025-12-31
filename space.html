@@ -19,7 +19,42 @@
 </button>
 
 <!-- METEOR CANVAS -->
-<canvas id="meteorCanvas"></canvas>
+function createMeteors() {
+  meteors = [];
+  for (let i = 0; i < 100; i++) {
+    meteors.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      dx: -8,
+      dy: 8,
+      length: 60
+    });
+  }
+}
+
+function animateMeteors() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+
+  meteors.forEach(m => {
+    ctx.beginPath();
+    ctx.moveTo(m.x, m.y);
+    ctx.lineTo(m.x + m.length, m.y - m.length);
+    ctx.stroke();
+
+    m.x += m.dx;
+    m.y += m.dy;
+
+    if (m.y > canvas.height || m.x < 0) {
+      m.x = canvas.width + Math.random() * 200;
+      m.y = Math.random() * -200;
+    }
+  });
+
+  animationId = requestAnimationFrame(animateMeteors);
+}
+
 
 <!-- FINAL SCENE -->
 <div id="finalScene" style="display:none;">
@@ -28,7 +63,7 @@
    ab thoda muskura v de!!
   </div>
 
-  <!-- Alien (emoji version, no image headache) -->
+  <!-- Alien (cartoon version) -->
   <div style="
     position:absolute;
     bottom:20px;
