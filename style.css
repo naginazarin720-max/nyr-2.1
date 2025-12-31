@@ -156,6 +156,14 @@ canvas {
   animation: jump 2s infinite;
   cursor: pointer;
 }
+* {
+  pointer-events: auto;
+}
+
+canvas {
+  pointer-events: none !important;
+}
+
 
 .head {
   width: 80px;
