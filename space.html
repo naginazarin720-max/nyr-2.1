@@ -29,7 +29,7 @@ canvas.height = window.innerHeight;
 let particles = [];
 let animationId;
 
-/* 🎉 CONFETTI + BALLOONS */
+/* 🎉 CONFETTI + BALLOONS+candy */
 function createParticles() {
   particles = [];
   for (let i = 0; i < 120; i++) {
@@ -38,7 +38,7 @@ function createParticles() {
       y: Math.random() * -canvas.height,
       size: Math.random() * 8 + 6,
       speed: Math.random() * 3 + 2,
-      type: Math.random() > 0.6 ? "balloon" : "confetti"
+      type: Math.random() > 0.6 ? "balloon" : "confetti" :"candy"
     });
   }
 }
