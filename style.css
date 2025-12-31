@@ -1,59 +1,91 @@
-/* General Page Styling */
+/* General Styling */
 body {
   font-family: sans-serif;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  padding: 50px;
-  background-color: #0b0c17;
-  color: #fff;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* Soups Container */
-.soups-container {
+/* Beige Background for index.html */
+body.index-page {
+  background-color: #f5f0dc;
+}
+
+/* Flip Cards Container */
+.cards-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* Flip Cards */
+.flip-card {
+  width: 200px;
+  height: 250px;
+  perspective: 1000px;
+  position: absolute; /* for floating movement */
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  backface-visibility: hidden;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  position: relative;
-  height: 250px;
-  margin-bottom: 50px;
+  align-items: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-/* Soup Images */
-.soup {
-  width: 180px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  position: relative;
-  animation: float 3s ease-in-out infinite alternate;
+.flip-card-front {
+  background-color: #ffcc66;
+  color: #333;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
-.soup:hover {
-  transform: scale(1.2);
-}
-
-/* Float Animation */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-15px); }
-}
-
-/* Message Box */
-.message {
-  max-width: 600px;
-  margin: 30px auto 0;
-  padding: 20px;
-  border: 2px solid #ffcc66;
-  border-radius: 15px;
-  background-color: rgba(255, 248, 230, 0.9);
-  color: #000;
-  display: none;
+.flip-card-back {
+  background-color: #fff8e1;
+  color: #333;
+  transform: rotateY(180deg);
   text-align: left;
-  white-space: pre-wrap;
-  font-size: 0.95em;
+  font-size: 0.9em;
+  overflow-y: auto;
 }
 
-/* Meteor Shower Canvas */
+/* Next Page Button */
+.next-page-btn {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border-radius: 10px;
+  border: none;
+  background-color: #ffcc66;
+  color: #000;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: transform 0.2s;
+}
+.next-page-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Meteor canvas */
 #meteorCanvas {
   position: fixed;
   top: 0;
@@ -63,3 +95,36 @@ body {
   pointer-events: none;
   z-index: -1;
 }
+
+/* Alien & Board for final page */
+.alien-board {
+  display: none;
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.alien-board img {
+  width: 150px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hanging-board {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffcc66;
+  padding: 20px 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+
