@@ -2,37 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Alien Zone 👽</title>
+  <title>Alien Encounter 👽</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="space">
 
-<h1 class="space-text">click the alien 👽</h1>
+<h1 id="spaceText">tap the alien</h1>
 
-<div id="alien" onclick="startMeteors()">👽</div>
+<div id="alien" onclick="startShow()">
+  <div class="head"></div>
+  <div class="body"></div>
+  <div class="arm"></div>
+</div>
 
-<canvas id="meteors"></canvas>
+<canvas id="fx"></canvas>
 
 <script>
-const canvas = document.getElementById("meteors");
+const canvas = document.getElementById("fx");
 const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+let start = false;
+let candies = [];
 
-let active = false;
-let meteors = [];
-
-function startMeteors() {
-  active = true;
-  document.querySelector(".space-text").innerText =
-    "meteor shower initiated ☄️✨";
+function startShow(){
+  start = true;
+  document.getElementById("spaceText").innerText =
+    "Chal thoda muskura v de ab🍬☄️";
 }
 
-function createMeteor() {
+function spawnCandy(){
   return {
-    x: Math.random() * canvas.width,
+    x: Math.random()*canvas.width,
     y: -10,
-    speed: Math.random() * 4 + 3,
+    r: Math.random()*6+3
+  };
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if(start && Math.random()<0.2){
+    candies.push(spawnCandy());
+  }
+
+  candies.forEach((c,i)=>{
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+    ctx.fillStyle="pink";
+    ctx.fill();
+    c.y+=4;
+    if(c.y>canvas.height) candies.splice(i,1);
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
 
