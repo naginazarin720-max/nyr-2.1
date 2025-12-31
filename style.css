@@ -77,6 +77,15 @@
 .hanging-board.drop {
   top: 35%;
 }
+/* FORCE CARDS TO BE VISIBLE */
+.card,
+.card-container,
+.flip-card {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  display: block;
+}
 
 
 
