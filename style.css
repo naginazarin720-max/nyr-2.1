@@ -1,35 +1,64 @@
-/* General Styling */
-body {
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+/* PAGE */
+.final-body {
   margin: 0;
   background: white;
   overflow: hidden;
   font-family: Arial, sans-serif;
 }
 
-/* Button */
+/* BUTTONS */
 .next-page-btn {
   position: fixed;
   top: 30px;
   left: 50%;
   transform: translateX(-50%);
   padding: 14px 30px;
-  font-size: 1.1em;
   background: #ffcc66;
-  border: none;
   border-radius: 12px;
+  border: none;
+  font-size: 1.1em;
   cursor: pointer;
   z-index: 10;
 }
 
-/* Canvas */
-#fxCanvas {
+/* FALLING ZONE */
+#fallZone {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
+  pointer-events: none;
   z-index: 1;
 }
 
-/* Message Board */
+#fallZone::before,
+#fallZone::after {
+  content: "🎈 🎉 🎈 🎉 🎈 🎉 🎈 🎉";
+  position: absolute;
+  top: -100px;
+  width: 100%;
+  font-size: 2rem;
+  animation: fall 4s linear infinite;
+}
+
+#fallZone::after {
+  animation-delay: 1.5s;
+}
+
+#fallZone:not(.active)::before,
+#fallZone:not(.active)::after {
+  display: none;
+}
+
+@keyframes fall {
+  from { top: -120px; }
+  to { top: 100vh; }
+}
+
+/* MESSAGE BOARD */
 .hanging-board {
   position: fixed;
   top: -300px;
@@ -41,151 +70,14 @@ body {
   font-size: 1.2em;
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: top 1s ease;
   z-index: 5;
-  transition: top 1.2s ease;
 }
 
 .hanging-board.drop {
-  top: 30%;
+  top: 35%;
 }
 
-/* Beige Background for index.html */
-body.index-page {
-  background-color: #f5f0dc;
-}
-
-/* Flip Cards Container */
-.cards-container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-}
-
-/* Flip Cards */
-.flip-card {
-  width: 200px;
-  height: 250px;
-  perspective: 1000px;
-  position: absolute; /* for floating movement */
-  cursor: pointer;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.flip-card-front {
-  background-color: #ffcc66;
-  color: #333;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.flip-card-back {
-  background-color: #fff8e1;
-  color: #333;
-  transform: rotateY(180deg);
-  text-align: left;
-  font-size: 0.9em;
-  overflow-y: auto;
-}
-
-/* Next Page Button */
-.next-page-btn {
-  padding: 15px 30px;
-  font-size: 1.2em;
-  border-radius: 10px;
-  border: none;
-  background-color: #ffcc66;
-  color: #000;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: transform 0.2s;
-}
-.next-page-btn:hover {
-  transform: scale(1.1);
-}
-
-/* Meteor canvas */
-#meteorCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Alien & Board for final page */
-.alien-board {
-  display: none;
-  background-color: white;
-  width: 100%;
-  height: 100vh;
-  position: relative;
-}
-
-.alien-board img {
-  width: 150px;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.hanging-board {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ffcc66;
-  padding: 20px 40px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  font-size: 1.2em;
-  font-weight: bold;
-}
-.next-page-btn {
-  position: fixed;          /* THIS is the key */
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 30px;
-  font-size: 1.2em;
-  border-radius: 10px;
-  border: none;
-  background-color: #ffcc66;
-  color: #000;
-  cursor: pointer;
-  z-index: 9999;            /* stays above flying cards */
-  transition: transform 0.2s;
-}
-
-.next-page-btn:hover {
-  transform: translateX(-50%) scale(1.1);
-}
 
 
 
