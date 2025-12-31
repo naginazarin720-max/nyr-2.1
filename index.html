@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soup Test 🍲</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="beige">
+
+<h1>Choose your soup 🍲</h1>
+<p class="hint">two are lying. one cares.</p>
+
+<div class="soups">
+  <div class="soup" onclick="openSoup(1)">🍲</div>
+  <div class="soup" onclick="openSoup(2)">🍲</div>
+  <div class="soup" onclick="openSoup(3)">🍲</div>
+</div>
+
+<div id="message-box">
+  <p id="message-text"></p>
+  <button onclick="location.href='space.html'">go to space 🚀</button>
+</div>
+
+<script>
+/* ✏️ CUSTOMIZE YOUR MESSAGES HERE */
+
+const messages = {
+  1: "LMAO you really thought 😭<br><br>this soup contains absolutely nothing.",
+  
+  2: "Congrats 🎉<br><br>You unlocked disappointment flavoured soup. ha! you deserve it",
+
+  3: "Happy New Year soupp 🥣💛<br><br>ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
+     And thanks too for listening too my bina matlab ki baatein. 
+    Ik i dont say it often but i did get lucky that u were not an old man"
+    "Take a moment to appreciate yourself,will uh?"
+      "By any chance u clicked it first, do open the others too,its my hardwork!!!"
+};
+
+/* -------------------------------- */
+
+function openSoup(num) {
+  document.getElementById("message-text").innerHTML = messages[num];
+  document.getElementById("message-box").style.display = "block";
+}
+</script>
+
+</body>
+</html>
