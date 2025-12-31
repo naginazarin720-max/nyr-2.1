@@ -2,114 +2,86 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space Scene</title>
+<title>Final Scene</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background:white; overflow:hidden;">
+<body>
 
-<!-- BUTTONS -->
-<button class="next-page-btn" id="meteorBtn">
-  start meteor shower ☄️
+<button id="startBtn" class="next-page-btn">
+  click for chaos 🎉
 </button>
 
-<button class="next-page-btn" id="finalBtn" style="display:none; top:90px;">
-  go ahead →
-</button>
+<canvas id="fxCanvas"></canvas>
 
-<!-- METEOR CANVAS -->
-function createMeteors() {
-  meteors = [];
-  for (let i = 0; i < 100; i++) {
-    meteors.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      dx: -8,
-      dy: 8,
-      length: 60
-    });
-  }
-}
-
-function animateMeteors() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 2;
-
-  meteors.forEach(m => {
-    ctx.beginPath();
-    ctx.moveTo(m.x, m.y);
-    ctx.lineTo(m.x + m.length, m.y - m.length);
-    ctx.stroke();
-
-    m.x += m.dx;
-    m.y += m.dy;
-
-    if (m.y > canvas.height || m.x < 0) {
-      m.x = canvas.width + Math.random() * 200;
-      m.y = Math.random() * -200;
-    }
-  });
-
-  animationId = requestAnimationFrame(animateMeteors);
-}
-
-
-<!-- FINAL SCENE -->
-<div id="finalScene" style="display:none;">
-
-  <div class="hanging-board">
-   ab thoda muskura v de!!
-  </div>
-
-  <!-- Alien (cartoon version) -->
-  <div style="
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:100px;
-  ">
-    👽👋
-  </div>
-
+<!-- MESSAGE BOARD -->
+<div id="board" class="hanging-board">
+  you made it 💛<br><br>
+  proud of you for surviving<br>
+  everything life casually threw.<br><br>
+  now breathe.
 </div>
 
 <script>
-/* ===== METEOR SETUP ===== */
-const canvas = document.getElementById("meteorCanvas");
+const canvas = document.getElementById("fxCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let meteors = [];
+let particles = [];
 let animationId;
 
-function createMeteors() {
-  meteors = [];
-  for (let i = 0; i < 80; i++) {
-    meteors.push({
+/* 🎉 CONFETTI + BALLOONS */
+function createParticles() {
+  particles = [];
+  for (let i = 0; i < 120; i++) {
+    particles.push({
       x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      speed: Math.random() * 6 + 4,
-      length: Math.random() * 80 + 20
+      y: Math.random() * -canvas.height,
+      size: Math.random() * 8 + 6,
+      speed: Math.random() * 3 + 2,
+      type: Math.random() > 0.6 ? "balloon" : "confetti"
     });
   }
 }
 
-function animateMeteors() {
+function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "rgba(0,0,0,0.8)";
-  ctx.lineWidth = 2;
 
-  meteors.forEach(m => {
-    ctx.beginPath();
-    ctx.moveTo(m.x, m.y);
-    ctx.lineTo(m.x - m.length, m.y + m.length);
-    ctx.stroke();
+  particles.forEach(p => {
+    if (p.type === "balloon") {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffb703";
+      ctx.fill();
+    } else {
+      ctx.fillStyle = "#fb8500";
+      ctx.fillRect(p.x, p.y, p.size, p.size);
+    }
 
-    m.x -= m.speed;
-    m.y += m.speed;
+    p.y += p.speed;
+  });
 
-    if (m.y > canvas.height || m.x
+  animationId = requestAnimationFrame(animateParticles);
+}
+
+/* BUTTON */
+document.getElementById("startBtn").onclick = () => {
+  document.getElementById("startBtn").style.display = "none";
+  createParticles();
+  animateParticles();
+
+  setTimeout(() => {
+    cancelAnimationFrame(animationId);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    document.getElementById("board").classList.add("drop");
+  }, 5000);
+};
+</script>
+
+</body>
+</html>
+
+  
+  
