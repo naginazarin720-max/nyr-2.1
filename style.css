@@ -1,3 +1,7 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
 /* RESET */
 * {
   box-sizing: border-box;
@@ -36,12 +40,17 @@
 
 #fallZone::before,
 #fallZone::after {
-  content: "🎈 🎉 🎈 🎉 🎈 🎉 🎈 🎉";
+  content: "🎈 🎉 🎈 🎉 🎈 🎉 🎈 🎉 🎈 🎉 🎈 🎉";
   position: absolute;
-  top: -100px;
-  width: 100%;
-  font-size: 2rem;
-  animation: fall 4s linear infinite;
+  top: -120px;
+  left: 0;
+  width: 100vw;
+  font-size: 2.2rem;
+  display: flex;
+  justify-content: space-around;
+  animation: fall 60s linear infinite;
+}
+
 }
 
 #fallZone::after {
