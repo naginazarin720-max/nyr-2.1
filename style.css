@@ -23,26 +23,37 @@ h1 {
 .soups {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   margin-top: 50px;
 }
 
-.soup {
-  font-size: 120px;   /* BIG */
+.soup-btn {
+  font-size: 120px;
+  background: none;
+  border: none;
   cursor: pointer;
   animation: float 3s ease-in-out infinite;
-  transition: transform 0.3s;
 }
 
-.soup:nth-child(2) {
-  animation-delay: 1s;
-}
-.soup:nth-child(3) {
-  animation-delay: 2s;
+.soup-btn:nth-child(2){ animation-delay:1s; }
+.soup-btn:nth-child(3){ animation-delay:2s; }
+
+@keyframes float {
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(-25px); }
+  100%{ transform: translateY(0); }
 }
 
-.soup:hover {
-  transform: scale(1.3) rotate(-5deg);
+#message-box {
+  display: none;
+  background: white;
+  padding: 25px;
+  margin: 40px auto;
+  width: 85%;
+  max-width: 420px;
+  border-radius: 20px;
+}
+
 }
 
 @keyframes float {
