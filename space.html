@@ -1,65 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Alien Encounter 👽</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floating Soups + Meteor Shower</title>
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="space">
+<h2>Pick a soup!</h2>
 
-<h1 id="spaceText">tap the alien</h1>
-
-<div id="alien" onclick="startShow()">
-  <div class="head"></div>
-  <div class="body"></div>
-  <div class="arm"></div>
+<div class="soups-container">
+  <img src="soup1.png" class="soup" onclick="showMsg(1)">
+  <img src="soup2.png" class="soup" onclick="showMsg(2)">
+  <img src="soup3.png" class="soup" onclick="showMsg(3)">
 </div>
 
-<canvas id="fx"></canvas>
+<div id="msg" class="message"></div>
+
+<!-- Meteor Canvas -->
+<canvas id="meteorCanvas"></canvas>
 
 <script>
-const canvas = document.getElementById("fx");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+const messages = {
+  1: "ullu banayaa bada maza aaya 😭\n\nthis soup contains absolutely nothing.",
+  2: "Congrats 🎉\n\nYou unlocked disappointment flavoured soup. ha! you deserve it",
+  3: `Happy New Year soupp 🥣💛
 
-let start = false;
-let candies = [];
+ok this year was a lot, you have went through lotta silent battles and many more things but here uh r! I am proud of how strong you are.
+And thanks too for listening too my bina matlab ki baatein.
+Ik i dont say it often but i did get lucky that u were not an old man.
+Take a moment to appreciate yourself, will uh?
+By any chance u clicked it first, do open the others too, its my hardwork!!!`
+};
 
-function startShow(){
-  start = true;
-  document.getElementById("spaceText").innerText =
-    "Chal thoda muskura v de ab🍬☄️";
+// Show message function
+function showMsg(id) {
+  const msgDiv = document.getElementById('msg');
+  msgDiv.innerHTML = messages[id].replace(/\n/g, "<br>");
+  msgDiv.style.display = 'block';
+  msgDiv.scrollIntoView({ behavior: "smooth" });
 }
 
-function spawnCandy(){
-  return {
+// Meteor Shower Animation
+const canvas = document.getElementById('meteorCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let meteors = [];
+for(let i=0; i<80; i++){
+  meteors.push({
     x: Math.random()*canvas.width,
-    y: -10,
-    r: Math.random()*6+3
-  };
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  if(start && Math.random()<0.2){
-    candies.push(spawnCandy());
-  }
-
-  candies.forEach((c,i)=>{
-    ctx.beginPath();
-    ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
-    ctx.fillStyle="pink";
-    ctx.fill();
-    c.y+=4;
-    if(c.y>canvas.height) candies.splice(i,1);
+    y: Math.random()*canvas.height,
+    length: Math.random()*80 + 20,
+    speed: Math.random()*4 + 2,
+    angle: Math.random()*0.2 + 0.2
   });
-
-  requestAnimationFrame(animate);
 }
-animate();
+
+function animateMeteors(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+  ctx.lineWidth = 2;
+  meteors.forEach(m => {
+    ctx.beginPath();
+    ctx.moveTo(m.x, m.y);
+    ctx.lineTo(m.x - m.length*m.angle, m.y + m.length);
+    ctx.stroke();
+    m.x -= m.speed * m.angle;
+    m.y += m.speed;
+    if(m.y > canvas.height || m.x < 0){
+      m.x = Math.random()*canvas.width;
+      m.y = -50;
+    }
+  });
+  requestAnimationFrame(animateMeteors);
+}
+
+animateMeteors();
+
+// Handle resize
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
