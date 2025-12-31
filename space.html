@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alien Zone 👽</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="space">
+
+<h1 class="space-text">click the alien 👽</h1>
+
+<div id="alien" onclick="startMeteors()">👽</div>
+
+<canvas id="meteors"></canvas>
+
+<script>
+const canvas = document.getElementById("meteors");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let active = false;
+let meteors = [];
+
+function startMeteors() {
+  active = true;
+  document.querySelector(".space-text").innerText =
+    "meteor shower initiated ☄️✨";
+}
+
+function createMeteor() {
+  return {
+    x: Math.random() * canvas.width,
+    y: -10,
+    speed: Math.random() * 4 + 3,
+
