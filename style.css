@@ -143,3 +143,58 @@ canvas {
 
   pointer-events: none;
 }
+.space {
+  background:black;
+  color:white;
+  text-align:center;
+  overflow:hidden;
+}
+
+#alien {
+  width: 120px;
+  margin: 60px auto;
+  animation: jump 2s infinite;
+  cursor: pointer;
+}
+
+.head {
+  width: 80px;
+  height: 80px;
+  background: #7cff7c;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.body {
+  width: 60px;
+  height: 100px;
+  background: #6ae36a;
+  border-radius: 30px;
+  margin: auto;
+}
+
+.arm {
+  width: 50px;
+  height: 10px;
+  background: #6ae36a;
+  margin: 10px auto;
+  animation: wave 1s infinite alternate;
+}
+
+@keyframes wave {
+  from { transform: rotate(10deg); }
+  to { transform: rotate(-20deg); }
+}
+
+@keyframes jump {
+  0%{ transform: translateY(0); }
+  50%{ transform: translateY(-20px); }
+  100%{ transform: translateY(0); }
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
