@@ -6,80 +6,44 @@
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="final-body">
 
 <button id="startBtn" class="next-page-btn">
-  click for chaos 🎉
+  click for surprise 🎈
 </button>
 
-<canvas id="fxCanvas"></canvas>
+<div id="fallZone"></div>
 
-<!-- MESSAGE BOARD -->
 <div id="board" class="hanging-board">
-  Chal ab thoda muskura v de!!<br><br>
-  
+  you made it to next year<br><br>
+  chal abb muskuraa!!<br><br>
+ 
 </div>
 
+<a href="index.html" id="nextLink" class="next-page-btn" style="display:none; top:90px;">
+  go back →
+</a>
+
 <script>
-const canvas = document.getElementById("fxCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const startBtn = document.getElementById("startBtn");
+const fallZone = document.getElementById("fallZone");
+const board = document.getElementById("board");
+const nextLink = document.getElementById("nextLink");
 
-let particles = [];
-let animationId;
-
-/* 🎉 CONFETTI + BALLOONS+candy */
-function createParticles() {
-  particles = [];
-  for (let i = 0; i < 120; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * -canvas.height,
-      size: Math.random() * 8 + 6,
-      speed: Math.random() * 3 + 2,
-      type: Math.random() > 0.6 ? "balloon" : "confetti" :"candy"
-    });
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach(p => {
-    if (p.type === "balloon") {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = "#ffb703";
-      ctx.fill();
-    } else {
-      ctx.fillStyle = "#fb8500";
-      ctx.fillRect(p.x, p.y, p.size, p.size);
-    }
-
-    p.y += p.speed;
-  });
-
-  animationId = requestAnimationFrame(animateParticles);
-}
-
-/* BUTTON */
-document.getElementById("startBtn").onclick = () => {
-  document.getElementById("startBtn").style.display = "none";
-  createParticles();
-  animateParticles();
+startBtn.onclick = () => {
+  startBtn.style.display = "none";
+  fallZone.classList.add("active");
 
   setTimeout(() => {
-    cancelAnimationFrame(animationId);
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    document.getElementById("board").classList.add("drop");
-  }, 5000);
+    board.classList.add("drop");
+    nextLink.style.display = "block";
+  }, 4000);
 };
 </script>
 
 </body>
 </html>
+
 
   
   
