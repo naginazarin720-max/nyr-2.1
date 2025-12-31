@@ -3,85 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meteor + Alien Board</title>
+<title>Space Scene</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-<button class="next-page-btn" id="startMeteorBtn">Start Meteor Shower 5s</button>
-<button class="next-page-btn" id="goFinalBtn" style="display:none;">Go to Final Page</button>
+<body style="background:white; overflow:hidden;">
 
+<!-- BUTTONS -->
+<button class="next-page-btn" id="meteorBtn">
+  start meteor shower ☄️
+</button>
+
+<button class="next-page-btn" id="finalBtn" style="display:none; top:90px;">
+  go ahead →
+</button>
+
+<!-- METEOR CANVAS -->
 <canvas id="meteorCanvas"></canvas>
 
-<div class="alien-board" id="alienBoard">
-  <div class="hanging-board">You made it! 👽💛</div>
-  <img src="alien.png" alt="Alien waving">
+<!-- FINAL SCENE -->
+<div id="finalScene" style="display:none;">
+
+  <div class="hanging-board">
+   ab thoda muskura v de!!
+  </div>
+
+  <!-- Alien (emoji version, no image headache) -->
+  <div style="
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:100px;
+  ">
+    👽👋
+  </div>
+
 </div>
 
 <script>
-const meteorCanvas = document.getElementById('meteorCanvas');
-const ctx = meteorCanvas.getContext('2d');
-meteorCanvas.width = window.innerWidth;
-meteorCanvas.height = window.innerHeight;
+/* ===== METEOR SETUP ===== */
+const canvas = document.getElementById("meteorCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// Meteor creation
 let meteors = [];
+let animationId;
 
 function createMeteors() {
   meteors = [];
-  for(let i=0; i<80; i++){
+  for (let i = 0; i < 80; i++) {
     meteors.push({
-      x: Math.random()*meteorCanvas.width,
-      y: Math.random()*meteorCanvas.height,
-      length: Math.random()*80 + 20,
-      speed: Math.random()*4 + 2,
-      angle: Math.random()*0.2 + 0.2
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      speed: Math.random() * 6 + 4,
+      length: Math.random() * 80 + 20
     });
   }
 }
 
-// Animate meteors
-function animateMeteors(){
-  ctx.clearRect(0,0,meteorCanvas.width,meteorCanvas.height);
-  ctx.strokeStyle = 'rgba(255,255,255,0.8)';
+function animateMeteors() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = "rgba(0,0,0,0.8)";
   ctx.lineWidth = 2;
+
   meteors.forEach(m => {
     ctx.beginPath();
     ctx.moveTo(m.x, m.y);
-    ctx.lineTo(m.x - m.length*m.angle, m.y + m.length);
+    ctx.lineTo(m.x - m.length, m.y + m.length);
     ctx.stroke();
-    m.x -= m.speed * m.angle;
+
+    m.x -= m.speed;
     m.y += m.speed;
-    if(m.y > meteorCanvas.height || m.x < 0){
-      m.x = Math.random()*meteorCanvas.width;
-      m.y = -50;
-    }
-  });
-  requestAnimationFrame(animateMeteors);
-}
 
-// Start meteor for 5s
-document.getElementById('startMeteorBtn').addEventListener('click', () => {
-  createMeteors();
-  animateMeteors();
-  setTimeout(() => {
-    ctx.clearRect(0,0,meteorCanvas.width,meteorCanvas.height);
-    document.getElementById('meteorCanvas').style.display='none';
-    document.getElementById('alienBoard').style.display='block';
-    document.getElementById('goFinalBtn').style.display='inline-block';
-  }, 5000);
-});
-
-document.getElementById('goFinalBtn').addEventListener('click', () => {
-  alert('You reached the final interaction!'); // Or go to another page if needed
-});
-
-// Handle resize
-window.addEventListener('resize', () => {
-  meteorCanvas.width = window.innerWidth;
-  meteorCanvas.height = window.innerHeight;
-});
-</script>
-
-</body>
-</html>
+    if (m.y > canvas.height || m.x
